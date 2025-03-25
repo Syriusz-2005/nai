@@ -34,6 +34,6 @@ public class Perceptron {
         double result = compute(data);
         // Pseudocode: weights = weights + (decision - result) * result * (1 - result) * alpha
         weights = weights.add((decision - result) * result * (1 - result) * alpha);
-        threshold += -alpha * (decision - result) * result * (1 - result);
+        threshold -= alpha * (decision - result) * result * (1 - result);
     }
 }
