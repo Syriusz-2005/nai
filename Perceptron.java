@@ -14,7 +14,7 @@ public class Perceptron {
     public Perceptron(int size, double alpha) {
         var weights = new Vector(new ArrayList<>());
         for (int i = 0; i < size; i++) {
-            weights.components.add(Math.random() * 2 - 1);
+            weights.components.add(Math.random() * 2.0 - 1);
         }
         this.weights = weights;
         this.threshold = 0.0;
@@ -33,7 +33,16 @@ public class Perceptron {
     public void update(Vector data, double decision) {
         double result = compute(data);
         // Pseudocode: weights = weights + (decision - result) * result * (1 - result) * alpha
-        weights = weights.add((decision - result) * result * (1 - result) * alpha);
+        weights = weights.add(data.mul((decision - result) * result * (1 - result) * alpha));
         threshold -= alpha * (decision - result) * result * (1 - result);
+    }
+
+    @Override
+    public String toString() {
+        return "\nPerceptron{" +
+                "weights=" + weights +
+                ", threshold=" + threshold +
+                ", alpha=" + alpha +
+                "}";
     }
 }

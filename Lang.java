@@ -6,20 +6,30 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public record Lang(String lang, List<String> paragraphs) {
-    public int getMaxSize() {
-        return paragraphs().stream().mapToInt(String::length).max().getAsInt();
-    }
+    public static String chars = "abcdefghijklmnopqrstuwxyz";
 
     public List<Vector> getAsVectors() {
         return paragraphs
                 .stream()
                 .filter(para -> para.length() > 10)
-                .map(para -> {
-                    List<Double> charCodes = para.chars().asDoubleStream().boxed().toList();
-                    return new Vector(
-                            charCodes
-                    );
-                })
+                .map(Lang::getParaAsVector)
                 .toList();
+    }
+
+    public static Vector getParaAsVector(String para) {
+        var paragraphCharacters = para.chars()
+                .mapToObj((charCode) -> (char) charCode)
+                .collect(Collectors.groupingBy(
+                        character -> character,
+                        Collectors.toList()
+                ));
+        ArrayList<Double> characters = new ArrayList<>();
+        for (var c : chars.toCharArray()) {
+            var groupedCharacters = paragraphCharacters.get(c);
+            characters.add(((double) (groupedCharacters != null ? groupedCharacters.size() : 0)) / para.length());
+        }
+        return new Vector(
+                characters
+        );
     }
 }

@@ -21,7 +21,7 @@ public class Vector {
     }
 
     public Vector add(Vector v) {
-        Vector out = new Vector(components);
+        Vector out = new Vector(new ArrayList<>());
         for (int i = 0; i < components.size(); i++) {
             out.components.add(components.get(i) + v.components.get(i));
         }
@@ -30,5 +30,9 @@ public class Vector {
 
     public Vector add(double v) {
         return new Vector(components.stream().map(c -> c + v).toList());
+    }
+
+    public Vector mul(double s) {
+        return new Vector(components.stream().map(c -> c * s).toList());
     }
 }

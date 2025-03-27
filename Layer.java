@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class Layer {
     public ArrayList<Perceptron> perceptrons = new ArrayList<>();
@@ -19,20 +20,32 @@ public class Layer {
     public void train(List<Lang> langs, int iterations) {
         perceptrons = new ArrayList<>();
         for (var lang : langs) {
-            perceptrons.add(new Perceptron(5000, 0.1)); // Hardcoded dimensions (chars)
+            perceptrons.add(new Perceptron(Lang.chars.length(), 0.1));
         }
         for (int i = 0; i < iterations; i++) {
-            for (int j = 0; j < langs.size(); j++) {
-                var lang = langs.get(j);
-                var perceptron = perceptrons.get(j);
-                var paragraphs = lang.getAsVectors();
-                var expectedDecisions = ;
-                for (var para : paragraphs) {
-
+            for (int p = 0; p < 5; p++) {
+                for (int j = 0; j < langs.size(); j++) {
+                    var lang = langs.get(j);
+                    var paragraphs = lang.getAsVectors();
+                    var expectedDecisions = getExpectedDecision(langs, j);
+                    var para = paragraphs.get(p);
+                    layerUpdate(para, expectedDecisions);
                 }
             }
-            List<Double> currentResult = layerCompute();
+            if (i % 100 == 0) {
+                System.out.println(perceptrons);
+            }
         }
     }
 
+    private List<Double> getExpectedDecision(List<Lang> langs, int correctLangIndex) {
+        List<Double> decision = new ArrayList<>(langs.stream().map((_lang) -> 0.0).toList());
+        decision.set(correctLangIndex, 1.0);
+        return decision;
+    }
+
+    @Override
+    public String toString() {
+        return "Layer perceptrons: " + perceptrons;
+    }
 }
