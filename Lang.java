@@ -1,9 +1,8 @@
+import Vector.Vector;
+
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.function.Function;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public record Lang(String lang, List<String> paragraphs) {
     public static String chars = "abcdefghijklmnopqrstuwxyz";

@@ -1,3 +1,5 @@
+import Vector.Vector;
+
 import java.util.ArrayList;
 
 public class Perceptron {

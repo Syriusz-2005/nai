@@ -1,6 +1,7 @@
+import Vector.Vector;
+
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class Layer {
     public ArrayList<Perceptron> perceptrons = new ArrayList<>();

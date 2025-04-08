@@ -1,3 +1,5 @@
+package Vector;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,6 +28,18 @@ public class Vector {
             out.components.add(components.get(i) + v.components.get(i));
         }
         return out;
+    }
+
+    public Vector sub(Vector v) {
+        Vector out = new Vector(new ArrayList<>());
+        for (int i = 0; i < components.size(); i++) {
+            out.components.add(components.get(i) - v.components.get(i));
+        }
+        return out;
+    }
+
+    public double len() {
+        return Math.sqrt(components.stream().mapToDouble(v -> (double) v * v).sum());
     }
 
     public Vector add(double v) {
