@@ -14,6 +14,10 @@ public class Vector {
         return components;
     }
 
+    public double[] getAsArray() {
+        return components.stream().mapToDouble(c -> c).toArray();
+    }
+
     public double dot(Vector v) {
         double out = 0;
         for (int i = 0; i < components.size(); i++) {
@@ -38,6 +42,7 @@ public class Vector {
         return out;
     }
 
+
     public double len() {
         return Math.sqrt(components.stream().mapToDouble(v -> (double) v * v).sum());
     }
@@ -48,5 +53,17 @@ public class Vector {
 
     public Vector mul(double s) {
         return new Vector(components.stream().map(c -> c * s).toList());
+    }
+
+    public Vector div(double s) {
+        return new Vector(components.stream().map(c -> c / s).toList());
+    }
+
+    public static Vector getCentroid(List<Vector> vectors) {
+        var sum = new Vector(vectors.getFirst().getComponents());
+        for (int i = 1; i < vectors.size(); i++) {
+            sum = sum.add(vectors.get(i));
+        }
+        return sum.div(vectors.size());
     }
 }

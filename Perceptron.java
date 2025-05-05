@@ -16,7 +16,7 @@ public class Perceptron {
     public Perceptron(int size, double alpha) {
         var weights = new Vector(new ArrayList<>());
         for (int i = 0; i < size; i++) {
-            weights.components.add(Math.random() * 2.0 - 1);
+            weights.getComponents().add(Math.random() * 2.0 - 1);
         }
         this.weights = weights;
         this.threshold = 0.0;
