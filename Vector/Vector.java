@@ -9,6 +9,9 @@ public class Vector {
     public Vector(List<Double> components) {
         this.components = components;
     }
+    public Vector(double x, double y) {
+        this(List.of(x, y));
+    }
 
     public List<Double> getComponents() {
         return components;
@@ -42,7 +45,6 @@ public class Vector {
         return out;
     }
 
-
     public double len() {
         return Math.sqrt(components.stream().mapToDouble(v -> (double) v * v).sum());
     }
@@ -65,5 +67,10 @@ public class Vector {
             sum = sum.add(vectors.get(i));
         }
         return sum.div(vectors.size());
+    }
+
+
+    public static double dist(Vector v1, Vector v2) {
+        return Math.abs(v1.sub(v2).len());
     }
 }
